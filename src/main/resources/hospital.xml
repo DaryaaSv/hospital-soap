@@ -1,42 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!DOCTYPE hospital [
-		<!ELEMENT hospital (id|hospitalName|type|address|phoneNumber|doctors|equipments)*>
-		<!ELEMENT id (#PCDATA)>
-		<!ELEMENT hospitalName (#PCDATA)>
-		<!ELEMENT type (#PCDATA)>
-		<!ELEMENT address (#PCDATA)>
-		<!ELEMENT phoneNumber (#PCDATA)>
-		<!ELEMENT doctors (doctor)*>
-		<!ELEMENT doctor (id|firstName|surname|phoneNumber|specialty|salary|appointments)*>
-		<!ELEMENT firstName (#PCDATA)>
-		<!ELEMENT surname (#PCDATA)>
-		<!ELEMENT specialty (#PCDATA)>
-		<!ELEMENT salary (#PCDATA)>
-		<!ELEMENT appointments (appointment)*>
-		<!ELEMENT appointment (date|id|patient|result|type)*>
-		<!ELEMENT date (#PCDATA)>
-		<!ELEMENT patient (id|firstName|surname|age|phoneNumber|email|hospitalRoom|illnesses)*>
-		<!ELEMENT age (#PCDATA)>
-		<!ELEMENT email (#PCDATA)>
-		<!ELEMENT hospitalRoom (id|roomNumber|type|capacity|floor)*>
-		<!ELEMENT roomNumber (#PCDATA)>
-		<!ELEMENT capacity (#PCDATA)>
-		<!ELEMENT floor (#PCDATA)>
-		<!ELEMENT illnesses (illness)*>
-		<!ELEMENT illness (id|name|diagnose|details|remarks)*>
-		<!ELEMENT name (#PCDATA)>
-		<!ELEMENT diagnose (#PCDATA)>
-		<!ELEMENT details (#PCDATA)>
-		<!ELEMENT remarks (#PCDATA)>
-		<!ELEMENT result (#PCDATA)>
-		<!ELEMENT equipments (equipment)*>
-		<!ELEMENT equipment (id|name|modelNumber|manufacturer|type|location)*>
-		<!ELEMENT modelNumber (#PCDATA)>
-		<!ELEMENT manufacturer (#PCDATA)>
-		<!ELEMENT location (#PCDATA)>
-		]>
-<hospital xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		  xsi:noNamespaceSchemaLocation="hospital.xsd">
+<hospital xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<id>1</id>
 	<hospitalName>Central hospital</hospitalName>
 	<type>Clinic</type>
