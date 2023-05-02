@@ -1,0 +1,100 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://spring.io/guides/gs-producing-web-service"
+           xmlns:tns="http://spring.io/guides/gs-producing-web-service"
+           elementFormDefault="qualified">
+
+    <!-- Complex Type: Patient -->
+    <xs:complexType name="patient">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="firstName" type="xs:string"/>
+            <xs:element name="surname" type="xs:string"/>
+            <xs:element name="age" type="xs:int"/>
+            <xs:element name="phoneNumber" type="xs:string"/>
+            <xs:element name="email" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Complex Type: Doctor -->
+    <xs:complexType name="doctor">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="firstName" type="xs:string"/>
+            <xs:element name="surname" type="xs:string"/>
+            <xs:element name="phoneNumber" type="xs:string"/>
+            <xs:element name="specialty" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Complex Type: Appointment -->
+    <xs:complexType name="appointment">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="type" type="xs:string"/>
+            <xs:element name="date" type="xs:date"/>
+            <xs:element name="patient" type="tns:patient"/>
+            <xs:element name="doctor" type="tns:doctor"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Complex Type: Equipment -->
+    <xs:complexType name="equipment">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="modelNumber" type="xs:string"/>
+            <xs:element name="manufacturer" type="xs:string"/>
+            <xs:element name="type" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Operation: GetAllPatients -->
+    <xs:element name="getAllPatientsRequest"/>
+
+    <xs:element name="getAllPatientsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="patient" type="tns:patient" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Operation: GetDoctorById -->
+    <xs:element name="getDoctorByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getDoctorByIdResponse" type="tns:doctor"/>
+
+    <!-- Operation: AddEquipment -->
+    <xs:element name="addEquipmentRequest" type="tns:equipment"/>
+
+    <xs:element name="addEquipmentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Operation: TransformXMLToHTML -->
+    <xs:element name="transformXMLToHTMLRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="xmlData" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="transformXMLToHTMLResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="htmlData" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
