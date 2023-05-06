@@ -1,93 +1,83 @@
-package Models;
+package ModelsHibernate;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlType;
+import javax.persistence.*;
 
 /**
- * <p>Java class for equipment complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
- * <pre>
- * &lt;complexType name="equipment"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="modelNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="manufacturer" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="type" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
- * </pre>
- * 
- * 
- */
-
-/**
- * The Equipment class represents a piece of medical equipment, containing information about the equipment's ID,
- * name, model number, manufacturer, and type.
- * This class is annotated with JAXB annotations to enable marshalling and unmarshalling between Java objects and XML.
- */
+ * This class represents equipment that can be used in various facilities.
+ * The class contains properties such as name, model number, manufacturer, and type.
+ * Each equipment is uniquely identified by its ID.
+ **/
+@Entity
+@Table(name="equipment")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "equipment", propOrder = {
-    "id",
-    "name",
-    "modelNumber",
-    "manufacturer",
-    "type"
-})
-public class Equipment {
+public class EquipmentDTO {
     /**
      * The unique identifier for the equipment.
      */
-    @XmlElement(required = true)
-    protected int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private int id;
 
     /**
      * The name of the equipment.
      */
-    @XmlElement(required = true)
-    protected String name;
+    private String name;
 
     /**
      * The model number of the equipment.
      */
-    @XmlElement(required = true)
-    protected String modelNumber;
+    private String modelNumber;
 
     /**
      * The manufacturer of the equipment.
      */
-    @XmlElement(required = true)
-    protected String manufacturer;
+    private String manufacturer;
 
     /**
      * The type of the equipment.
      */
-    @XmlElement(required = true)
-    protected String type;
+    private String type;
 
     /**
-     * Default constructor for the Equipment class.
+     * Default constructor for the equipment class.
      */
-    public Equipment() {
+    public EquipmentDTO() {
+
     }
 
     /**
-     * Constructor for the Equipment class, initializing the equipment with the provided parameters.
+     * Creates a new instance of Equipment with the given values.
+     * @param name The name of the equipment.
+     * @param modelNumber The model number of the equipment.
+     * @param manufacturer The manufacturer of the equipment.
+     * @param type The type of the equipment.
+     */
+    public EquipmentDTO(String name, String modelNumber, String manufacturer, String type) {
+        this.name = name;
+        this.modelNumber = modelNumber;
+        this.manufacturer = manufacturer;
+        this.type = type;
+    }
+
+    public EquipmentDTO(Models.Equipment equipment) {
+        this.name = equipment.getName();
+        this.modelNumber = equipment.getModelNumber();
+        this.manufacturer = equipment.getManufacturer();
+        this.type = equipment.getType();
+    }
+
+    /**
+     * Creates a new instance of Equipment with the given values.
      * @param id The unique identifier for the equipment.
      * @param name The name of the equipment.
      * @param modelNumber The model number of the equipment.
      * @param manufacturer The manufacturer of the equipment.
      * @param type The type of the equipment.
      */
-    public Equipment(int id, String name, String modelNumber, String manufacturer, String type) {
+    public EquipmentDTO(int id, String name, String modelNumber, String manufacturer, String type) {
         this.id = id;
         this.name = name;
         this.modelNumber = modelNumber;
@@ -95,13 +85,6 @@ public class Equipment {
         this.type = type;
     }
 
-    public Equipment(ModelsHibernate.EquipmentDTO equipment) {
-        this.id = equipment.getId();
-        this.name = equipment.getName();
-        this.modelNumber = equipment.getModelNumber();
-        this.manufacturer = equipment.getManufacturer();
-        this.type = equipment.getType();
-    }
     /**
      * Returns the ID of the equipment object.
      * @return the ID of the equipment object.
@@ -181,5 +164,4 @@ public class Equipment {
     public void setType(String type) {
         this.type = type;
     }
-
 }

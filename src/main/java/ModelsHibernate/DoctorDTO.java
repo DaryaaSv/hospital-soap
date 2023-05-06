@@ -1,100 +1,66 @@
-package Models;
+package ModelsHibernate;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlType;
-
+import jakarta.xml.bind.annotation.*;
+import javax.persistence.*;
 /**
- * <p>Java class for doctor complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
- * <pre>
- * &lt;complexType name="doctor"&gt;
- *   &lt;complexContent&gt;
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
- *       &lt;sequence&gt;
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
- *         &lt;element name="firstName" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="surname" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="phoneNumber" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="specialty" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *       &lt;/sequence&gt;
- *     &lt;/restriction&gt;
- *   &lt;/complexContent&gt;
- * &lt;/complexType&gt;
- * </pre>
- * 
- * 
+ * Represents a doctor in a medical application. Doctors can have appointments and are identified by their unique ID.
+ * This class is an entity that is mapped to the "doctor" table in a database. It contains
+ * attributes such as name, specialty, salary, and appointments.
  */
-
-/**
- * The Doctor class represents a medical doctor, containing information about the doctor's ID, first name,
- * surname, phone number, and specialty.
- * This class is annotated with JAXB annotations to enable marshalling and unmarshalling between Java objects and XML.
- */
+@Entity
+@Table(name="doctor")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "doctor", propOrder = {
-    "id",
-    "firstName",
-    "surname",
-    "phoneNumber",
-    "specialty"
-})
-public class Doctor {
+public class DoctorDTO {
     /**
-     * The unique id of the doctor.
+     * The unique identifier for this doctor.
+     * This field is the primary key of the entity and is generated automatically by the database.
      */
-    @XmlElement(required = true)
-    protected int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private int id;
 
     /**
      * The first name of this doctor.
      */
-    @XmlElement(required = true)
-    protected String firstName;
+    private String firstName;
 
     /**
      * The surname of this doctor.
      */
-    @XmlElement(required = true)
-    protected String surname;
+    private String surname;
 
     /**
      * The phone number of this doctor.
      */
-    @XmlElement(required = true)
-    protected String phoneNumber;
+    private String phoneNumber;
 
     /**
      * The specialty of this doctor (e.g. cardiology, pediatrics).
      */
-    @XmlElement(required = true)
-    protected String specialty;
+    private String specialty;
 
     /**
-     * Default constructor for the Doctor class.
+     * Creates a new doctor with default values for all fields.
      */
-    public Doctor() {
+    public DoctorDTO() {
     }
 
-    public Doctor(ModelsHibernate.DoctorDTO doctor) {
+    public DoctorDTO(Models.Doctor doctor) {
         this.id = doctor.getId();
         this.firstName = doctor.getFirstName();
         this.surname = doctor.getSurname();
         this.phoneNumber = doctor.getPhoneNumber();
         this.specialty = doctor.getSpecialty();
     }
-    /**
-     * Constructor for the Doctor class, initializing the doctor with the provided parameters.
-     * @param id The unique identifier for the doctor.
-     * @param firstName The doctor's first name.
-     * @param surname The doctor's surname.
-     * @param phoneNumber The doctor's phone number.
-     * @param specialty The doctor's medical specialty.
-     */
-    public Doctor(int id, String firstName, String surname, String phoneNumber, String specialty) {
+    public DoctorDTO(String firstName, String surname, String phoneNumber, String specialty) {
+        this.firstName = firstName;
+        this.surname = surname;
+        this.phoneNumber = phoneNumber;
+        this.specialty = specialty;
+    }
+
+    public DoctorDTO(int id, String firstName, String surname, String phoneNumber, String specialty) {
         this.id = id;
         this.firstName = firstName;
         this.surname = surname;
@@ -181,5 +147,4 @@ public class Doctor {
     public void setSpecialty(String specialty) {
         this.specialty = specialty;
     }
-
 }

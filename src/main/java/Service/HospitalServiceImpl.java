@@ -1,17 +1,20 @@
 package Service;
 
+
+import Models.Appointment;
 import Models.Doctor;
 import Models.Equipment;
 import Models.Patient;
-import Models.Appointment;
+import ModelsHibernate.AppointmentDTO;
+import ModelsHibernate.DoctorDTO;
+import ModelsHibernate.EquipmentDTO;
+import ModelsHibernate.PatientDTO;
 import Util.HibernateUtil;
 import com.sun.xml.ws.util.ByteArrayDataSource;
 import jakarta.activation.DataHandler;
 import jakarta.activation.DataSource;
 import jakarta.jws.WebService;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -21,63 +24,83 @@ import java.io.File;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class implements the HospitalService interface and provides methods to interact with the hospital system.
+ * The service includes methods to retrieve patient and doctor information, add equipment to the hospital, and
+ * transform XML data to HTML format.
+ */
 @Service
 @WebService(endpointInterface = "Service.HospitalService")
 public class HospitalServiceImpl implements HospitalService {
-
-    private List<Patient> patients;
-    private List<Doctor> doctors;
-    private List<Appointment> appointments;
-    private List<Equipment> equipments;
+    private List<PatientDTO> patientsDTO;
+    private List<DoctorDTO> doctorsDTO;
+    private List<EquipmentDTO> equipmentsDTO;
     private String xslFilePath = "C:\\Users\\Dasha\\IdeaProjects\\XSLTransformation\\src\\main\\resources\\hospitalsToHTML.xsl";
 
 
+    /**
+     * Constructor for the HospitalServiceImpl object that initializes the lists of patients, doctors, appointments,
+     * and equipments.
+     * @throws ParseException
+     */
     public HospitalServiceImpl() throws ParseException {
-
-        Patient patient1 = new Patient(1,"Alice", "Pattinson", 19, "+37063945276", "alicepattinson@gmail.com");
-        Patient patient2 = new Patient(2, "Peter", "Parker", 28, "+37015947852", "peter.park@gmail.com");
-
-        Doctor doctor1 = new Doctor(1, "Bob", "Stevens", "+37067645456", "Physiotherapist");
-        Doctor doctor2 = new Doctor(2, "Alex", "Vivien", "+37065645456", "Cardiology");
-
-        Appointment appointment1 = new Appointment(1, "monitoring", new SimpleDateFormat("yyyy-MM-dd").parse(java.time.LocalDate.now().toString()), patient1, doctor1);
-        Appointment appointment2 = new Appointment(2, "monitoring", new SimpleDateFormat("yyyy-MM-dd").parse(java.time.LocalDate.now().toString()), patient2, doctor2);
-
-
-        Equipment equipment1 = new Equipment(1, "Patient monitor", "HospEq", "For monitoring", "Utility room");
-        Equipment equipment2 = new Equipment(2, "Elliptical", "Precor", "Cardio Equipment", "Fitness Center");
-
-        patients = List.of(patient1, patient2);
-        doctors = List.of(doctor1, doctor2);
-        appointments = List.of(appointment1, appointment2);
-        equipments = List.of(equipment1, equipment2);
+        patientsDTO =  HibernateUtil.getFromDatabase(PatientDTO.class);
+        doctorsDTO = HibernateUtil.getFromDatabase(DoctorDTO.class);
+        equipmentsDTO = HibernateUtil.getFromDatabase(EquipmentDTO.class);
     }
 
+    /**
+     * Retrieves a list of all patients in the hospital.
+     * @return A List of Patient objects.
+     */
     @Override
     public List<Patient> getAllPatients() {
-        return this.patients;
+        List<Patient> patients = new ArrayList<>();
+        for(int i = 0; i < patientsDTO.size(); i++) {
+            patients.add(new Patient(patientsDTO.get(i)));
+        }
+        return patients;
     }
 
+    /**
+     * Retrieves a doctor by their unique identifier.
+     * @param doctorId The unique identifier of the doctor.
+     * @return The Doctor object corresponding to the given identifier.
+     */
     @Override
     public Doctor getDoctorById(int doctorId) {
-        for (Doctor doctor : doctors) {
+        Doctor doctorOut = new Doctor();
+        for (DoctorDTO doctor : doctorsDTO) {
             if (doctor.getId() == doctorId) {
-                return doctor;
+                doctorOut = new Doctor(doctor);
+                return doctorOut;
             }
         }
-
         return new Doctor();
     }
 
+    /**
+     * Adds equipment to the hospital system.
+     * @param equipment The Equipment object to add.
+     * @throws Exception An exception thrown when saving data to the database.
+     */
     @Override
-    public void addEquipment(Equipment equipment) {
-        this.equipments.add(equipment);
-        HibernateUtil.saveToDatabase(equipments);
+    public void addEquipment(Equipment equipment) throws Exception {
+        try{
+            HibernateUtil.saveToDatabase(List.of(new EquipmentDTO(equipment)));
+        } catch(Exception e) {
+            throw new Exception(e.toString());
+        }
     }
 
+    /**
+     * Transforms XML data to HTML format.
+     * @param xmlData The DataHandler object containing the XML data to transform.
+     * @return A DataHandler object containing the transformed HTML.
+     */
     @Override
     public DataHandler transformXMLToHTML(DataHandler xmlData) {
         String xslFile = "src/main/resources/hospitalsToHTML.xsl";

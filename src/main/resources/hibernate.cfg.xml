@@ -7,7 +7,7 @@
     <session-factory>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <!-- property name="connection.driver_class">com.mysql.jdbc.Driver</property -->
-        <property name="connection.url">jdbc:mysql://localhost/database</property>
+        <property name="connection.url">jdbc:mysql://localhost/hospital</property>
         <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name="connection.username">root</property>
         <property name="connection.password">root</property>
@@ -17,9 +17,9 @@
         <property name="show_sql">true</property>
         <property name="format_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
-        <mapping class="Models.Appointment" />
-        <mapping class="Models.Doctor" />
-        <mapping class="Models.Equipment"/>
-        <mapping class="Models.Patient" />
+        <mapping class="ModelsHibernate.AppointmentDTO" />
+        <mapping class="ModelsHibernate.DoctorDTO" />
+        <mapping class="ModelsHibernate.EquipmentDTO"/>
+        <mapping class="ModelsHibernate.PatientDTO" />
     </session-factory>
 </hibernate-configuration>

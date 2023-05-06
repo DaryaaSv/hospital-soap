@@ -40,7 +40,7 @@ public class HibernateUtil {
         }
     }
 
-    public static <T> void saveToDatabase(List<T> entities) {
+    public static <T> void saveToDatabase(List<T> entities) throws Exception {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
@@ -52,7 +52,7 @@ public class HibernateUtil {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw e;
+            throw new Exception(e.toString());
         }
     }
 

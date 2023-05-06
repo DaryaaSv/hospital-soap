@@ -1,6 +1,5 @@
 package Controllers;
 
-
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
@@ -11,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -23,10 +21,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+/**
+ * PdfController is a class responsible for handling the conversion of an XML file to a PDF file.
+ * This class is annotated with @Controller to indicate that it is a Spring Web MVC controller.
+ */
 @Controller
 public class PdfController {
-
+    /**
+     * Endpoint to handle the conversion of the XML file to a PDF file and return the PDF file as a response.
+     * @return ResponseEntity<byte [ ]> containing the PDF file as a byte array, along with appropriate response headers.
+     */
     @GetMapping("/convertToPDF")
     public ResponseEntity<byte[]> convertToPDFController() {
         try {
@@ -46,6 +50,11 @@ public class PdfController {
         }
     }
 
+    /**
+     * Converts the provided XML file to a PDF file using the given XSLT file and saves it to the specified outputFilePath.
+     * @param outputFilePath The path where the resulting PDF file will be saved.
+     * @throws Exception if any error occurs during the conversion process.
+     */
     public static void convertToPDF(String outputFilePath) throws Exception {
         File xsltFile = new File("src/main/resources/hospitalsToPDF.xsl");
         StreamSource xmlSource = new StreamSource(new File("src/main/resources/hospital.xml"));

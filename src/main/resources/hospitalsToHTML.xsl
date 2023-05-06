@@ -9,10 +9,10 @@
                 <title><xsl:value-of select="/hospital/hospitalName"/></title>
                 <style>
                     .pdf-button {
-                    font-family: Arial, sans-serif; /* Change to your desired font */
-                    font-size: 20px; /* Adjust the size as needed */
-                    color: white; /* Change the text color */
-                    background-color: #8db4ad; /* Change the button color */
+                    font-family: Arial, sans-serif;
+                    font-size: 20px;
+                    color: white;
+                    background-color: #8db4ad;
                     border: none;
                     padding: 15px 32px;
                     text-align: center;

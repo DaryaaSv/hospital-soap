@@ -11,28 +11,36 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-
 import javax.xml.namespace.QName;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
 
+/**
+ * This class implements the endpoints for the Hospital web service.
+ */
 @Endpoint
 public class HospitalEndpoint {
 
 	private static final String NAMESPACE_URI = "http://spring.io/guides/gs-producing-web-service";
-
 	private HospitalService hospitalService;
 
+	/**
+	 * Constructor for the HospitalEndpoint object that initializes the HospitalService.
+	 * @param hospitalService The HospitalService object to use for handling requests.
+	 */
 	@Autowired
 	public HospitalEndpoint(HospitalService hospitalService) {
 		this.hospitalService = hospitalService;
 	}
 
+	/**
+	 * Retrieves a list of all patients in the hospital.
+	 * @param request A JAXBElement representing the GetAllPatientsRequest message.
+	 * @return A JAXBElement representing the GetAllPatientsResponse message.
+	 */
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllPatientsRequest")
 	@ResponsePayload
 	public JAXBElement<GetAllPatientsResponse> getAllPatients(@RequestPayload JAXBElement<GetAllPatientsRequest> request) {
@@ -45,6 +53,11 @@ public class HospitalEndpoint {
 		return jaxbResponse;
 	}
 
+	/**
+	 * Retrieves a doctor by their unique identifier.
+	 * @param request A JAXBElement representing the GetDoctorByIdRequest message.
+	 * @return A JAXBElement representing the GetDoctorByIdResponse message.
+	 */
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "getDoctorByIdRequest")
 	@ResponsePayload
 	public JAXBElement<GetDoctorByIdResponse> getDoctorById(@RequestPayload JAXBElement<GetDoctorByIdRequest> request) {
@@ -57,9 +70,15 @@ public class HospitalEndpoint {
 		return jaxbElement;
 	}
 
+	/**
+	 * Adds equipment to the hospital system.
+	 * @param request A JAXBElement representing the AddEquipmentRequest message.
+	 * @return A JAXBElement representing the AddEquipmentResponse message.
+	 * @throws Exception An exception thrown when adding equipment to the system.
+	 */
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "addEquipmentRequest")
 	@ResponsePayload
-	public JAXBElement<AddEquipmentResponse> addEquipment(@RequestPayload JAXBElement<AddEquipmentRequest> request) {
+	public JAXBElement<AddEquipmentResponse> addEquipment(@RequestPayload JAXBElement<AddEquipmentRequest> request) throws Exception {
 		hospitalService.addEquipment(request.getValue().getEquipment());
 
 		AddEquipmentResponse response = new AddEquipmentResponse();
@@ -71,6 +90,12 @@ public class HospitalEndpoint {
 		return jaxbElement;
 	}
 
+	/**
+	 * Transforms XML data to HTML format.
+	 * @param request A JAXBElement representing the TransformXMLToHTMLRequest message.
+	 * @return A JAXBElement representing the TransformXMLToHTMLResponse message.
+	 * @throws IOException An exception thrown when reading the input stream.
+	 */
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "transformXMLToHTMLRequest")
 	@ResponsePayload
 	public JAXBElement<TransformXMLToHTMLResponse> transformXMLToHTML(@RequestPayload JAXBElement<TransformXMLToHTMLRequest> request) throws IOException {
