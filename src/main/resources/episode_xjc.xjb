@@ -10,25 +10,25 @@ Generated on: 2023.04.30 at 06:24:28 PM EEST
   -->
   <bindings scd="x-schema::tns" xmlns:tns="http://spring.io/guides/gs-producing-web-service">
     <schemaBindings map="false">
-      <package name="io.spring.guides.ResponsesAndRequests"/>
+      <package name="io.spring.guides.Requests"/>
     </schemaBindings>
     <bindings scd="tns:getAllPatientsResponse">
-      <class ref="ResponsesAndRequests.GetAllPatientsResponse"/>
+      <class ref="Responses.GetAllPatientsResponse"/>
     </bindings>
     <bindings scd="~tns:patient">
       <class ref="Models.Patient"/>
     </bindings>
     <bindings scd="tns:getDoctorByIdRequest">
-      <class ref="ResponsesAndRequests.GetDoctorByIdRequest"/>
+      <class ref="Requests.GetDoctorByIdRequest"/>
     </bindings>
     <bindings scd="~tns:doctor">
       <class ref="Models.Doctor"/>
     </bindings>
     <bindings scd="tns:getAppointmentsForDoctorRequest">
-      <class ref="io.spring.guides.ResponsesAndRequests.GetAppointmentsForDoctorRequest"/>
+      <class ref="io.spring.guides.Requests.GetAppointmentsForDoctorRequest"/>
     </bindings>
     <bindings scd="tns:getAppointmentsForDoctorResponse">
-      <class ref="io.spring.guides.ResponsesAndRequests.GetAppointmentsForDoctorResponse"/>
+      <class ref="io.spring.guides.Requests.GetAppointmentsForDoctorResponse"/>
     </bindings>
     <bindings scd="~tns:appointment">
       <class ref="Models.Appointment"/>
@@ -37,13 +37,13 @@ Generated on: 2023.04.30 at 06:24:28 PM EEST
       <class ref="Models.Equipment"/>
     </bindings>
     <bindings scd="tns:addEquipmentResponse">
-      <class ref="ResponsesAndRequests.AddEquipmentResponse"/>
+      <class ref="Responses.AddEquipmentResponse"/>
     </bindings>
     <bindings scd="tns:transformXMLToHTMLRequest">
-      <class ref="ResponsesAndRequests.TransformXMLToHTMLRequest"/>
+      <class ref="Requests.TransformXMLToHTMLRequest"/>
     </bindings>
     <bindings scd="tns:transformXMLToHTMLResponse">
-      <class ref="ResponsesAndRequests.TransformXMLToHTMLResponse"/>
+      <class ref="Responses.TransformXMLToHTMLResponse"/>
     </bindings>
   </bindings>
 </bindings>

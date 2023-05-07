@@ -6,10 +6,15 @@
 //
 
 
-package ResponsesAndRequests;
+package Responses;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import Models.Patient;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 
@@ -24,7 +29,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="patient" type="{http://spring.io/guides/gs-producing-web-service}patient" maxOccurs="unbounded"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -33,29 +38,22 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  * 
  */
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "id"
-})
-@XmlRootElement(name = "getDoctorByIdRequest")
-public class GetDoctorByIdRequest {
+public class GetAllPatientsResponse {
 
-    protected int id;
+    @XmlElement(name = "patient")
+    private List<Patient> patients;
 
-    /**
-     * Gets the value of the id property.
-     * 
-     */
-    public int getId() {
-        return id;
+    public GetAllPatientsResponse() {
+        patients = new ArrayList<>();
     }
 
-    /**
-     * Sets the value of the id property.
-     * 
-     */
-    public void setId(int value) {
-        this.id = value;
+    public List<Patient> getPatients() {
+        return patients;
     }
 
+    public void setPatients(List<Patient> patients) {
+        this.patients = patients;
+    }
 }

@@ -6,12 +6,8 @@
 //
 
 
-package ResponsesAndRequests;
+package Responses;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import Models.Patient;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -29,7 +25,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="patient" type="{http://spring.io/guides/gs-producing-web-service}patient" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="htmlData" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -38,22 +34,38 @@ import jakarta.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class GetAllPatientsResponse {
+@XmlType(name = "", propOrder = {
+    "htmlData"
+})
+@XmlRootElement(name = "transformXMLToHTMLResponse")
+public class TransformXMLToHTMLResponse {
 
-    @XmlElement(name = "patient")
-    private List<Patient> patients;
+    @XmlElement(required = true)
+    protected String htmlData;
 
-    public GetAllPatientsResponse() {
-        patients = new ArrayList<>();
+    /**
+     * Gets the value of the htmlData property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getHtmlData() {
+        return htmlData;
     }
 
-    public List<Patient> getPatients() {
-        return patients;
+    /**
+     * Sets the value of the htmlData property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setHtmlData(String value) {
+        this.htmlData = value;
     }
 
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
-    }
 }

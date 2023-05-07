@@ -1,7 +1,9 @@
 package Models;
 
-import ResponsesAndRequests.*;
-import ResponsesAndRequests.AddEquipmentResponse;
+import Responses.GetAllPatientsResponse;
+import Responses.TransformXMLToHTMLResponse;
+import Requests.*;
+import Responses.AddEquipmentResponse;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.annotation.XmlElementDecl;
 import jakarta.xml.bind.annotation.XmlRegistry;

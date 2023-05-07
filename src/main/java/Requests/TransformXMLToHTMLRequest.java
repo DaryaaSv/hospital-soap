@@ -6,7 +6,7 @@
 //
 
 
-package ResponsesAndRequests;
+package Requests;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -25,7 +25,7 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="htmlData" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
+ *         &lt;element name="xmlData" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,36 +36,36 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "htmlData"
+    "xmlData"
 })
-@XmlRootElement(name = "transformXMLToHTMLResponse")
-public class TransformXMLToHTMLResponse {
+@XmlRootElement(name = "transformXMLToHTMLRequest")
+public class TransformXMLToHTMLRequest {
 
     @XmlElement(required = true)
-    protected String htmlData;
+    protected String xmlData;
 
     /**
-     * Gets the value of the htmlData property.
+     * Gets the value of the xmlData property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getHtmlData() {
-        return htmlData;
+    public String getXmlData() {
+        return xmlData;
     }
 
     /**
-     * Sets the value of the htmlData property.
+     * Sets the value of the xmlData property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setHtmlData(String value) {
-        this.htmlData = value;
+    public void setXmlData(String value) {
+        this.xmlData = value;
     }
 
 }

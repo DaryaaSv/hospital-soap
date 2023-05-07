@@ -1,6 +1,10 @@
 package WebService;
 
-import ResponsesAndRequests.*;
+import Responses.AddEquipmentResponse;
+import Responses.GetAllPatientsResponse;
+import Responses.GetDoctorByIdResponse;
+import Responses.TransformXMLToHTMLResponse;
+import Requests.*;
 import Service.HospitalService;
 import com.sun.xml.ws.util.ByteArrayDataSource;
 import jakarta.activation.DataHandler;
